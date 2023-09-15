@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Project Area Map</title>
     <style>
-        /* Set the map container size */
         #map {
             height: 400px;
             width: 100%;
@@ -12,18 +11,16 @@
     </style>
 </head>
 <body>
-    <h1>Draw Your Project Area</h1>
+    <h1>Draw Map Boundary</h1>
     <div id="map"></div>
     
     <script>
-        // Initialize the map
         function initMap() {
             const map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 37.7749, lng: -122.4194 }, // Default center (San Francisco)
-                zoom: 12, // Default zoom level
+                center: { lat: 23.2599, lng: 77.4127 }, 
+                zoom: 12,
             });
 
-            // Add event listeners to draw custom boundaries on the map
             const drawingManager = new google.maps.drawing.DrawingManager({
                 drawingMode: google.maps.drawing.OverlayType.RECTANGLE,
                 drawingControl: true,
@@ -36,22 +33,17 @@
             drawingManager.setMap(map);
 
             google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
-                // Capture the bounds of the drawn rectangle
                 const bounds = rectangle.getBounds();
                 console.log('Captured Bounds:', bounds);
 
-                // Generate a static map image URL based on the captured bounds
-                const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${bounds.getCenter().lat()},${bounds.getCenter().lng()}&zoom=15&size=800x400&maptype=roadmap&path=color:0x00ff00|weight:5|${bounds.getNorthEast().toUrlValue()}|${bounds.getNorthEast().lat()},${bounds.getSouthWest().lng()}|${bounds.getSouthWest().toUrlValue()}|${bounds.getSouthWest().lat()},${bounds.getNorthEast().lng()}&key=YOUR_API_KEY`;
+                const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${bounds.getCenter().lat()},${bounds.getCenter().lng()}&zoom=15&size=800x400&maptype=roadmap&path=color:0x00ff00|weight:5|${bounds.getNorthEast().toUrlValue()}|${bounds.getNorthEast().lat()},${bounds.getSouthWest().lng()}|${bounds.getSouthWest().toUrlValue()}|${bounds.getSouthWest().lat()},${bounds.getNorthEast().lng()}&key=AIzaSyCpzV2uci8gLyp8si2idL0Gy1PLUe_J8bU`;
                 
-                // Log the generated static map URL
                 console.log('Static Map URL:', staticMapUrl);
 
-                // You can use the 'staticMapUrl' for further processing or display it on the web page.
             });
         }
     </script>
     
-    <!-- Include the Google Maps API script with your API key -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpzV2uci8gLyp8si2idL0Gy1PLUe_J8bU&libraries=drawing&callback=initMap"></script>
 </body>
 </html>
